@@ -1,0 +1,31 @@
+<h2>Exemplo de Interpolação</h2>
+
+<h3> <strong>Olá, {{ nome }}</strong> </h3>
+
+<br>
+
+<h2>Exemplo Property Binding</h2>
+
+<img [src]="imgUrl" alt="" width="300">
+
+<br>
+<br>
+
+<button class="btn btn-primary" [disabled]="botaoDesabilitado">Exemplo de Botão</button>
+
+<h2>Exemplo Class e Style Binding Dinâmico</h2>
+
+<p>Selecione uma categoria de alerta:</p>
+
+<select [(ngModel)]="classeAlerta" class="form-select">
+   <option value="alert-success">Sucesso</option>
+  <option value="alert-info">Informativo</option>
+  <option value="alert-warning">Aviso</option>
+  <option value="alert-danger">Erro Crítico</option> 
+</select>
+
+<br>
+
+<div class="alert {{ classeAlerta }}" role="alert">
+  Texto colorido dinamicamente via interpolação de classe.
+</div>
