@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Api } from '../../service/api';
 import { Vaga } from '../../model/vagas.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-painel-vagas',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './painel-vagas.html',
   styleUrl: './painel-vagas.scss',
 })
@@ -32,22 +33,40 @@ export class PainelVaga implements OnInit {
     });
   }
 
-
   // Cadastrar Vaga
-  cadastrarVaga(): void{
+  cadastrarVaga(): void {
     this._apiService.cadastrarVaga(this.vaga).subscribe(
-      ()=>{
-        this.vaga = new Vaga(0, "","", "", 0);
-        this.listarVagaUnica(); // Atualizar as vagas com as informações do formulario
-        alert("Vaga Cadastrada com Sucesso!");
-      }, (erro) => {console.error("Exception: ",erro)}
+      () => {
+        this.vaga = new Vaga(0, '', '', '', 0);
+        this.listarVagaUnica(this.vaga); // Atualizar as vagas com as informações do formulario
+        alert('Vaga Cadastrada com Sucesso!');
+      },
+      (erro) => {
+        console.error('Exception: ', erro);
+      },
     );
   }
 
-  listarVagaUnica(vaga: Vaga){
+  listarVagaUnica(vaga: Vaga) {
     this.vaga = vaga;
   }
-  // atualizar  Vaga
+  // Atualizar  Vaga
+  atualizarVaga(id: any): void {
+    this._apiService.atualizarVaga(id, this.vaga).subscribe(() => {
+      this.vaga = new Vaga(0, '', '', '', 0); // Criar um obj vazio
+      this.listarVagaUnica(this.vaga); // Limpa os campos do formulário
+      alert('Vaga Atualizada com Sucesso!!');
+    });
+  }
 
   // Deletar Vaga
+  excluirVaga(id: any): void {
+    this._apiService.removerVaga(id).subscribe(() => {
+      this.vaga = new Vaga(0, '', '', '', 0); // Criar um obj vazio
+      this.listarVagaUnica(this.vaga); // Limpa os campos do formulário
+      alert('Vaga Excluída com Sucesso!');
+    });
+  }
+
 }
+
